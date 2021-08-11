@@ -46,33 +46,42 @@ function getMarbleCount(color) {
     return count;
 }
 
+function checkWin(player, opponent) {
+    if (player.redMarbles === 7) {
+        winner = {name: player.color, reason: `${player.color.chartAt(0).toUpperCase() + player.color.slice(1)} collected 7 red marbles!`};
+    } else if (getMarbleCount(opponent.color) === 0) {
+        winner = {name: player.color, reason: `No more ${currentOpp.color} marbles!`};
+    } else if (checkRemainingMoves(currentTurn) === false) {
+        winner = {name: currentOpp.color, reason: `${player.color.chartAt(0).toUpperCase() + player.color.slice(1)} has no more moves`};
+    }
+}
 
 async function cpuMove(player, opponent){
-    let moves = []
+    let moves = [];
     for (let i = 0; i < 7; i++) {
         for (let j = 0; j < 7; j++) {
             if (document.querySelector(`.r${i}.c${j}`).firstElementChild.classList[1] === 'white') {
                 let directions = ['L', 'R', 'F', 'B'];
                 for (let direction of directions) {
-                    if (fakeMove(player, i, j, direction).valid) {
-                        moves.push({row: i, columm: j, direction: direction})
+                    let result = fakeMove(player, i, j, direction)
+                    if (result.valid) { 
+                        if (result.capturedRed || result.knockedOffOpp) {
+                            await makeMove(i, j, direction);
+                            checkWin(player, opponent);
+                            updateStats();
+                            return;
+                        }
+                        moves.push({row: i, columm: j, direction: direction});
                     }
                 }
             }
         }
     }
-    let rand = Math.floor(Math.random() * moves.length)
-    let move = moves[rand]
-    await makeMove(move.row, move.columm, move.direction)
-    if (player.redMarbles === 7) {
-        winner = {name: player.color, reason: `${player.color.chartAt(0).toUpperCase() + player.color.slice(1)} collected 7 red marbles!`}
-    } else if (getMarbleCount(opponent.color) === 0) {
-        winner = {name: player.color, reason: `No more ${currentOpp.color} marbles!`}
-    } else if (checkRemainingMoves(currentTurn) === false) {
-        winner = {name: currentOpp.color, reason: `${player.color.chartAt(0).toUpperCase() + player.color.slice(1)} has no more moves`}
-    }
+    let rand = Math.floor(Math.random() * moves.length);
+    let move = moves[rand];
+    await makeMove(move.row, move.columm, move.direction);
+    checkWin(player, opponent);
     updateStats();
-
 }
 
 function checkRemainingMoves(player) {
@@ -93,14 +102,13 @@ function checkRemainingMoves(player) {
 
 function updateStats() {
     if (winner) {
-        document.querySelector('.winnermarble').className = 'minimarble winnermarble ' + winner.name
-        document.querySelector('.winnertext').innerHTML = winner.reason
-        document.querySelector('.gameover').classList.toggle('hidden')
+        document.querySelector('.winnermarble').className = 'minimarble winnermarble ' + winner.name;
+        document.querySelector('.winnertext').innerHTML = winner.reason;
+        document.querySelector('.gameover').classList.toggle('hidden');
     }
-
     document.querySelector('.turnmarble').className = 'minimarble turnmarble ' + currentTurn.color;
-    document.querySelector(`.${currentTurn.color}captured`).innerHTML = currentTurn.redMarbles
-    document.querySelector(`.${currentOpp.color}captured`).innerHTML = currentOpp.redMarbles
+    document.querySelector(`.${currentTurn.color}captured`).innerHTML = currentTurn.redMarbles;
+    document.querySelector(`.${currentOpp.color}captured`).innerHTML = currentOpp.redMarbles;
 }
 
 function fakeMove(player, row, column, direction, notify = false) {
@@ -119,8 +127,12 @@ function fakeMove(player, row, column, direction, notify = false) {
                     if (notify === true) {
                         alert('Can\'t knock of your own marble!');
                     }
-                    result.valid = false
+                    result.valid = false;
                     return result;
+                } else if (copy_board[row][0] === 'red') {
+                    result.capturedRed = true;
+                } else if (copy_board[row][0] === currentOpp.color) {
+                    result.knockedOffOpp = true;
                 }
             }
             copy_board[row][0] = 'empty';
@@ -151,8 +163,12 @@ function fakeMove(player, row, column, direction, notify = false) {
                     if (notify === true) {
                         alert('Can\'t knock off your own marble');
                     }
-                    result.valid = false
+                    result.valid = false;
                     return result;
+                } else if (copy_board[row][6] === 'red') {
+                    result.capturedRed = true;
+                } else if (copy_board[row][6] === currentOpp.color) {
+                    result.knockedOffOpp = true;
                 }
             }
             copy_board[row][6] = 'empty';
@@ -184,8 +200,12 @@ function fakeMove(player, row, column, direction, notify = false) {
                     if (notify === true) {
                         alert('Can\'t knock off your own marble');
                     }
-                    result.valid = false
+                    result.valid = false;
                     return result;
+                } else if (copy_board[0][column] === 'red') {
+                    result.capturedRed = true;
+                } else if (copy_board[0][column] === currentOpp.color) {
+                    result.knockedOffOpp = true;
                 }
             }
             copy_board[0][column] = 'empty';
@@ -217,8 +237,13 @@ function fakeMove(player, row, column, direction, notify = false) {
                     if (notify === true) {
                         alert('Can\'t knock off your own marble');
                     }
-                    result.valid = false
+                    result.valid = false;
                     return result;
+                }
+                else if (copy_board[6][column] === 'red') {
+                    result.capturedRed = true;
+                } else if (copy_board[6][column] === currentOpp.color) {
+                    result.knockedOffOpp = true;
                 }
             }
             copy_board[6][column] = 'empty';
@@ -440,18 +465,12 @@ async function checkMove(direction, square) {
         moving = false;
         return;
     }
-    await makeMove(row, column, direction)
-    if (player.redMarbles === 7) {
-        winner = {name: player.color, reason: `${player.color.charAt(0).toUpperCase() + player.color.slice(1)} collected 7 red marbles!`}
-    } else if (getMarbleCount(opponent.color) === 0) {
-        winner = {name: player.color, reason: `No more ${currentOpp.color} marbles!`}
-    } else if (checkRemainingMoves(currentTurn) === false) {
-        winner = {name: currentOpp.color, reason: `${player.color.charAt(0).toUpperCase() + player.color.slice(1)} has no more moves`}
-    }
+    await makeMove(row, column, direction);
+    checkWin(player, opponent);
     updateStats();
     while (!winner && currentTurn.color === 'white'){
         await new Promise(resolve => setTimeout(resolve, 500));
-        await cpuMove(currentTurn, currentOpp)
+        await cpuMove(currentTurn, currentOpp);
     }
     moving = false;
     
@@ -531,9 +550,9 @@ for (const restartButton of restartButtons) {
 }
 
 document.querySelector('.showrules').addEventListener('click', function () {
-    document.querySelector('.rules').classList.toggle('hidden')
+    document.querySelector('.rules').classList.toggle('hidden');
 })
 
 document.querySelector('.hiderules').addEventListener('click', function () {
-    document.querySelector('.rules').classList.toggle('hidden')
+    document.querySelector('.rules').classList.toggle('hidden');
 })
