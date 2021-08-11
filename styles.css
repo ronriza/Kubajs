@@ -1,0 +1,142 @@
+body{
+    margin: 0;
+    background-color: #E4FBFF;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+}
+
+
+
+#board {
+    padding-top: 50px;
+}
+
+
+table{
+    margin: 0 auto;
+    overflow: hidden;
+    border-collapse: collapse;
+    border-radius: 30px;
+    border-style: hidden; 
+    box-shadow: 0 0 0 2px #666; 
+}
+
+
+td {
+    height: 50px;
+    width: 50px;
+    border: 2px solid #666;
+    padding:5px;
+}
+
+.marble {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+
+
+.moving-left{
+    transition: transform 0.5s;
+    transform: translateX(-61.5px);
+}
+.moving-right{
+    transition: transform 0.5s;
+    transform: translateX(61.5px);
+}
+.moving-up{
+    transition: transform 0.5s;
+    transform: translateY(-61.5px);
+}
+.moving-back{
+    transition: transform 0.5s;
+    transform: translateY(61.5px);
+}
+
+
+.red {
+    background: rgb(251,106,106);
+    background: linear-gradient(135deg, rgba(251,106,106,1) 19%, rgba(255,79,79,1) 50%, rgba(245,62,62,1) 81%);
+}
+
+.white {
+    background: rgb(255,255,255);
+    background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(182,182,182,1) 74%, rgba(136,136,136,1) 100%);
+}
+
+.black {
+    background: rgb(0,0,0);
+    background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(64,63,63,1) 66%, rgba(138,138,138,1) 100%);
+}
+
+.selected{
+    background-color: lightgray;
+}
+
+td:hover {
+    background-color: lightgray;
+}
+
+.stats {
+    padding-top: 10px;
+    text-align: center;
+}
+
+
+.minimarble {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-bottom: 5px;
+}
+
+
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 70%;
+    width: 70%;
+    background-color: white;
+    border: 2px solid grey;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 10px 20px;
+    font-size: medium;
+    overflow-y: auto;
+}
+
+.gameover {
+    height: 30%;
+    width: 30%;
+    text-align: center;
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 4px;
+    border-radius: 5px;
+}
+
+.popup button {
+    display: block;
+    margin: 0 auto;
+}

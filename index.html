@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuba</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>    
+    <div id="board">
+        <table>
+            <tr> 
+                <td class="r0 c0"><div class="marble white"></div></td>
+                <td class="r0 c1"><div class="marble white"></div></td>
+                <td class="r0 c2"><div class="marble empty"></div></td>
+                <td class="r0 c3"><div class="marble empty"></div></td>
+                <td class="r0 c4"><div class="marble empty"></div></td>
+                <td class="r0 c5"><div class="marble black"></div></td>
+                <td class="r0 c6"><div class="marble black"></div></td>
+            </tr> 
+            <tr> 
+                <td class="r1 c0"><div class="marble white"></div></td>
+                <td class="r1 c1"><div class="marble white"></div></td>
+                <td class="r1 c2"><div class="marble empty"></div></td>
+                <td class="r1 c3"><div class="marble red"></div></td>
+                <td class="r1 c4"><div class="marble empty"></div></td>
+                <td class="r1 c5"><div class="marble black"></div></td>
+                <td class="r1 c6"><div class="marble black"></div></td>
+            </tr>
+            <tr>
+                <td class="r2 c0"><div class="marble empty"></div></td>
+                <td class="r2 c1"><div class="marble empty"></div></td>
+                <td class="r2 c2"><div class="marble red"></div></td>
+                <td class="r2 c3"><div class="marble red"></div></td>
+                <td class="r2 c4"><div class="marble red"></div></td>
+                <td class="r2 c5"><div class="marble empty"></div></td>
+                <td class="r2 c6"><div class="marble empty"></div></td>
+            </tr> 
+            <tr> 
+                <td class="r3 c0"><div class="marble empty"></div></td>
+                <td class="r3 c1"><div class="marble red"></div></td>
+                <td class="r3 c2"><div class="marble red"></div></td>
+                <td class="r3 c3"><div class="marble red"></div></td>
+                <td class="r3 c4"><div class="marble red"></div></td>
+                <td class="r3 c5"><div class="marble red"></div></td>
+                <td class="r3 c6"><div class="marble empty"></div></td>
+ 
+            </tr> 
+            <tr> 
+                <td class="r4 c0"><div class="marble empty"></div></td>
+                <td class="r4 c1"><div class="marble empty"></div></td>
+                <td class="r4 c2"><div class="marble red"></div></td>
+                <td class="r4 c3"><div class="marble red"></div></td>
+                <td class="r4 c4"><div class="marble red"></div></td>
+                <td class="r4 c5"><div class="marble empty"></div></td>
+                <td class="r4 c6"><div class="marble empty"></div></td>
+            </tr> 
+            <tr> 
+                <td class="r5 c0"><div class="marble black"></div></td>
+                <td class="r5 c1"><div class="marble black"></div></td>
+                <td class="r5 c2"><div class="marble empty"></div></td>
+                <td class="r5 c3"><div class="marble red"></div></td>
+                <td class="r5 c4"><div class="marble empty"></div></td>
+                <td class="r5 c5"><div class="marble white"></div></td>
+                <td class="r5 c6"><div class="marble white"></div></td>
+            </tr> 
+            <tr> 
+                <td class="r6 c0"><div class="marble black"></div></td>
+                <td class="r6 c1"><div class="marble black"></div></td>
+                <td class="r6 c2"><div class="marble empty"></div></td>
+                <td class="r6 c3"><div class="marble empty"></div></td>
+                <td class="r6 c4"><div class="marble empty"></div></td>
+                <td class="r6 c5"><div class="marble white"></div></td>
+                <td class="r6 c6"><div class="marble white"></div></td>
+            </tr> 
+        </table>
+    </div>
+
+    <div class="stats">
+        <button class="showrules">Rules</button>
+        <button class="restart">Restart</button>
+        <h1>Current Turn: <span class="minimarble turnmarble black"></span></h1>
+        <h2><span class="minimarble red"></span> Captured:</h2>
+        <h2>Player <span class="minimarble black"></span> <span class="blackcaptured">0</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCPU <span class="minimarble white"></span> <span class="whitecaptured">0</span></h2>
+    </div>
+
+    <div class="rules popup hidden">
+        <button class="hiderules">Hide Rules</button>
+        <h3>Objective</h3>
+        <p>A player wins by pushing off and capturing seven neutral red stones or by pushing off all of the opposing stones.  A player who has no legal moves available has lost the game.</p>
+        <h3>Play</h3>
+        <p>With alternating turns, players move a single marble in any orthogonal direction.  In order to slide a marble, however, there must be access to it.  For example, to slide a marble to the left, the cell just to the right if it must be vacant.  If there are other marbles; your own, your opponent's or the neutral red ones; in the direction of your move at the cell you are moving to, those marbles are pushed one cell forward along the axis of your move.  Up to six marbles can be pushed by your one marble on your turn.  Although a player cannot push off one of his own marbles, any opposing counters that are pushed off are removed from the game and any neutral counters that are pushed off are captured by the pushing player to add to his or her store of captured neutral red marbles.  If you manage to push off a neutral or opposing marble, you are entitled to another turn.</p>  
+        <p>Kuba incorporates the Ko rule to prohibit the same position being repeated over and over again.</p>
+    </div>
+
+    <div class="gameover popup hidden">
+        <h3><span class="minimarble winnermarble"></span> Won!</h3>
+        <p class="winnertext"></p>
+        <button class="restart">Restart</button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
