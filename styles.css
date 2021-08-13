@@ -5,12 +5,9 @@ body{
     font-size: 12px;
 }
 
-
-
 #board {
     padding-top: 50px;
 }
-
 
 table{
     margin: 0 auto;
@@ -20,7 +17,6 @@ table{
     border-style: hidden; 
     box-shadow: 0 0 0 2px #666; 
 }
-
 
 td {
     height: 50px;
@@ -34,8 +30,6 @@ td {
     width: 50px;
     border-radius: 50%;
 }
-
-
 
 .moving-left{
     transition: transform 0.5s;
@@ -54,7 +48,6 @@ td {
     transform: translateY(61.5px);
 }
 
-
 .red {
     background: rgb(251,106,106);
     background: linear-gradient(135deg, rgba(251,106,106,1) 19%, rgba(255,79,79,1) 50%, rgba(245,62,62,1) 81%);
@@ -71,18 +64,18 @@ td {
 }
 
 .selected{
-    background-color: lightgray;
+    background-color: #008bba77;
 }
 
-td:hover {
-    background-color: lightgray;
+td:not(.selected):hover {
+    box-shadow: 0 0 3px 3px #008bba93;
 }
+
 
 .stats {
     padding-top: 10px;
     text-align: center;
 }
-
 
 .minimarble {
     display: inline-block;
@@ -92,8 +85,6 @@ td:hover {
     vertical-align: middle;
     margin-bottom: 5px;
 }
-
-
 
 .popup {
     position: fixed;
@@ -116,8 +107,6 @@ td:hover {
     width: 30%;
     text-align: center;
 }
-
-
 
 .hidden {
     display: none;

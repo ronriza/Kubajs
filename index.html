@@ -78,20 +78,22 @@
     </div>
 
     <div class="stats">
-        <button class="showrules">Rules</button>
+        <button class="rulestoggle">How To Play</button>
         <button class="restart">Restart</button>
-        <h1>Current Turn: <span class="minimarble turnmarble black"></span></h1>
+        <h1 class='turntext'>Your Turn <span class="minimarble turnmarble black"></span></h1>
         <h2><span class="minimarble red"></span> Captured:</h2>
-        <h2>Player <span class="minimarble black"></span> <span class="blackcaptured">0</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCPU <span class="minimarble white"></span> <span class="whitecaptured">0</span></h2>
+        <h2>You <span class="minimarble black"></span> <span class="blackcaptured">0</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCPU <span class="minimarble white"></span> <span class="whitecaptured">0</span></h2>
     </div>
 
     <div class="rules popup hidden">
-        <button class="hiderules">Hide Rules</button>
+        <button class="rulestoggle">Hide</button>
+        <h3>Controls</h3>
+        <p>Select a black marble by clicking, and move using the arrow keys</p>
         <h3>Objective</h3>
-        <p>A player wins by pushing off and capturing seven neutral red stones or by pushing off all of the opposing stones.  A player who has no legal moves available has lost the game.</p>
+        <p>A player wins by pushing off and capturing seven neutral red marbles or by pushing off all of the opposing marbles.  A player who has no legal moves available has lost the game.</p>
         <h3>Play</h3>
         <p>With alternating turns, players move a single marble in any orthogonal direction.  In order to slide a marble, however, there must be access to it.  For example, to slide a marble to the left, the cell just to the right if it must be vacant.  If there are other marbles; your own, your opponent's or the neutral red ones; in the direction of your move at the cell you are moving to, those marbles are pushed one cell forward along the axis of your move.  Up to six marbles can be pushed by your one marble on your turn.  Although a player cannot push off one of his own marbles, any opposing counters that are pushed off are removed from the game and any neutral counters that are pushed off are captured by the pushing player to add to his or her store of captured neutral red marbles.  If you manage to push off a neutral or opposing marble, you are entitled to another turn.</p>  
-        <p>Kuba incorporates the Ko rule to prohibit the same position being repeated over and over again.</p>
+        <p>Kuba incorporates the Ko rule, which means you cannot return the board to the previous position. This prevents the same position being repeated over and over again.</p>
     </div>
 
     <div class="gameover popup hidden">
