@@ -48,11 +48,11 @@ function getMarbleCount(color) {
 
 function checkWin(player, opponent) {
     if (player.redMarbles === 7) {
-        winner = {name: player.color, reason: `${player.color.chartAt(0).toUpperCase() + player.color.slice(1)} collected 7 red marbles!`};
+        winner = {name: player.color, reason: `${player.color.charAt(0).toUpperCase() + player.color.slice(1)} collected 7 red marbles!`};
     } else if (getMarbleCount(opponent.color) === 0) {
         winner = {name: player.color, reason: `No more ${currentOpp.color} marbles!`};
     } else if (checkRemainingMoves(currentTurn) === false) {
-        winner = {name: currentOpp.color, reason: `${player.color.chartAt(0).toUpperCase() + player.color.slice(1)} has no more moves`};
+        winner = {name: currentOpp.color, reason: `${player.color.charAt(0).toUpperCase() + player.color.slice(1)} has no more moves`};
     }
 }
 
