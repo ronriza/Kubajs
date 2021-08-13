@@ -5,6 +5,8 @@ body{
     font-size: 12px;
 }
 
+/* Board and pieces  */
+
 #board {
     padding-top: 50px;
 }
@@ -70,6 +72,8 @@ td {
 td:not(.selected):hover {
     box-shadow: 0 0 3px 3px #008bba93;
 }
+
+/* Stats and popups */
 
 
 .stats {

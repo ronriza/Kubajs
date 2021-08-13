@@ -13,6 +13,7 @@ class Player {
 }
 
 function toArray() {
+    // converts the current board state to a 2D array
     let board = [[], [], [], [], [], [], []]
     for (let i = 0; i < 7; i++) {
         for (let j = 0; j < 7; j++) {
@@ -35,6 +36,7 @@ let selected = null;
 
 
 function getMarbleCount(color) {
+    // Accepts a color and returns the number of marbles of that color remaining on the board
     let count = 0;
     for (let i = 0; i < 7; i++) {
         for (let j = 0; j < 7; j++) {
@@ -47,6 +49,8 @@ function getMarbleCount(color) {
 }
 
 function checkWin(player, opponent) {
+    // Checks if player has captured 7 marbles or knocked of all opponent marbles, 
+    // or if the current turn has no remaining moves
     if (player.redMarbles === 7) {
         winner = { name: player.color, reason: `${player.color.charAt(0).toUpperCase() + player.color.slice(1)} collected 7 red marbles!` };
     } else if (getMarbleCount(opponent.color) === 0) {
@@ -57,7 +61,9 @@ function checkWin(player, opponent) {
 }
 
 async function cpuMove(player, opponent) {
-    let moves = [];
+    // Searches through all available moves and picks a random one.
+    // If a move will result in a knockoff, it will pick that move
+    let moves = []
     for (let i = 0; i < 7; i++) {
         for (let j = 0; j < 7; j++) {
             if (document.querySelector(`.r${i}.c${j}`).firstElementChild.classList[1] === 'white') {
@@ -85,6 +91,7 @@ async function cpuMove(player, opponent) {
 }
 
 function checkRemainingMoves(player) {
+    // Returns true if the player has any moves screen. Otherwise returns false
     for (let i = 0; i < 7; i++) {
         for (let j = 0; j < 7; j++) {
             if (document.querySelector(`.r${i}.c${j}`).firstElementChild.classList[1] === player.color) {
@@ -101,6 +108,8 @@ function checkRemainingMoves(player) {
 }
 
 function updateStats() {
+    // Updates the current turn and captured marbles on the UI. If a winner has been declared,
+    // winner popup will appear
     if (winner) {
         document.querySelector('.winnermarble').className = 'minimarble winnermarble ' + winner.name;
         document.querySelector('.winnertext').innerHTML = winner.reason;
@@ -117,6 +126,9 @@ function updateStats() {
 }
 
 function fakeMove(player, row, column, direction, notify = false) {
+    // Attempts to make move the piece at the given row and column in the given direction.
+    // Returns an object with boolean properties reflecting if the move is valid, if it
+    // will result in a red marble captured, or if it will result in an opponent marble knocked off
     const result = { valid: true, capturedRed: false, knockedOffOpp: false };
     const copy_board = JSON.parse(JSON.stringify(currentState));
     let rowModifier = null;
@@ -212,6 +224,7 @@ function fakeMove(player, row, column, direction, notify = false) {
 }
 
 async function makeMove(row, column, direction) {
+    // Executes a move on screen by modifying the DOM
     let rowModifier = null;
     let columnModifier = null;
     let edgeIndex = null;
@@ -305,6 +318,7 @@ async function makeMove(row, column, direction) {
 
 
 async function checkMove(direction, square) {
+    // Checks if a move is valid, executes the move, and then makes CPU moves (as necessary)
     let player = currentTurn;
     let opponent = currentOpp;
     let color = square.firstElementChild.classList[1];
@@ -332,6 +346,7 @@ const cells = document.querySelectorAll('td');
 
 for (const cell of cells) {
     cell.addEventListener('click', function (e) {
+        // adds click event to each td for selecting a marble
         e.stopPropagation();
         if (moving === true) {
             return;
@@ -355,6 +370,7 @@ for (const cell of cells) {
 }
 
 document.addEventListener('click', function () {
+    // adds click event to whole document to deselect a marble
     if (selected !== null) {
         selected.classList.remove('selected');
         selected = null;
@@ -362,6 +378,7 @@ document.addEventListener('click', function () {
 })
 
 document.addEventListener('keydown', function (e) {
+    // adds key event for moving marble
     if (selected === null || moving === true) {
         return;
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -377,6 +394,7 @@ const restartButtons = document.querySelectorAll('.restart')
 
 for (const restartButton of restartButtons) {
     restartButton.addEventListener('click', function () {
+        // restarts game on click of restart button
         location.reload();
     })
 }
@@ -385,6 +403,7 @@ const rulesToggles = document.querySelectorAll('.rulestoggle')
 
 for (const rulesToggle of rulesToggles) {
     rulesToggle.addEventListener('click', function () {
+        // shows rules on click
         document.querySelector('.rules').classList.toggle('hidden');
     })
 }
