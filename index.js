@@ -485,7 +485,6 @@ function minimax(currentBoard, previousBoard, player, opponent, startingPlayerSc
 
     let bestMove = null;
 
-    console.log(testMoves)
 
     if (testMoves.every((val, i, arr) => val.score === arr[0].score)){
         let rand = Math.floor(Math.random() * testMoves.length);
